@@ -1,4 +1,6 @@
 ---
+import { FORMSPREE_ENDPOINT } from '../lib/site';
+
 interface Props {
   /** Clase extra para ajustar el contenedor desde donde se use (ej. dentro del Hero). */
   class?: string;
@@ -10,11 +12,15 @@ const { class: className = '' } = Astro.props;
   id="lead-form"
   class:list={['glass space-y-4 rounded-xl p-6 sm:p-8', className]}
   aria-label="Formulario de contacto rápido"
+  action={FORMSPREE_ENDPOINT}
+  method="POST"
 >
   <div>
     <h2 class="font-heading text-xl text-foreground">Diagnóstico gratuito de 15 minutos</h2>
     <p class="mt-1 text-sm text-muted">Sin compromiso. Respondemos por WhatsApp el mismo día.</p>
   </div>
+
+  <input type="hidden" name="_subject" value="Nuevo diagnóstico agendado — nubenca" />
 
   <div>
     <label for="lead-nombre" class="mb-1 block text-sm text-muted">Nombre</label>
@@ -57,8 +63,9 @@ const { class: className = '' } = Astro.props;
   </div>
 
   <button
+    id="lead-form-submit"
     type="submit"
-    class="w-full rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+    class="w-full rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
   >
     Quiero mi diagnóstico
   </button>
@@ -66,15 +73,18 @@ const { class: className = '' } = Astro.props;
   <p id="lead-form-error" class="hidden text-sm text-red-400" role="alert">
     Completa tu nombre y WhatsApp para continuar.
   </p>
+  <p id="lead-form-status" class="hidden text-sm text-muted" role="status" aria-live="polite"></p>
 </form>
 
 <script>
-  import { whatsappUrl } from '../lib/site';
+  import { whatsappUrl, FORMSPREE_ENDPOINT } from '../lib/site';
 
   const form = document.getElementById('lead-form') as HTMLFormElement | null;
   const errorEl = document.getElementById('lead-form-error');
+  const statusEl = document.getElementById('lead-form-status');
+  const submitBtn = document.getElementById('lead-form-submit') as HTMLButtonElement | null;
 
-  form?.addEventListener('submit', (event) => {
+  form?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const data = new FormData(form);
@@ -88,11 +98,33 @@ const { class: className = '' } = Astro.props;
     }
     errorEl?.classList.add('hidden');
 
-    const message = `Hola, soy ${nombre}. Me interesa ${interes.toLowerCase()} y quiero agendar mi diagnóstico de 15 minutos. Mi WhatsApp: ${telefono}.`;
+    if (submitBtn) submitBtn.disabled = true;
+    statusEl?.classList.remove('hidden');
+    if (statusEl) statusEl.textContent = 'Registrando tu diagnóstico…';
+
+    // Se registra el lead en Formspree (queda guardado aunque el usuario no
+    // complete el salto a WhatsApp). Si Formspree falla no bloqueamos el
+    // flujo — WhatsApp sigue siendo el canal de respuesta inmediata.
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (!response.ok) {
+        console.error('Formspree respondió con error', response.status);
+      }
+    } catch (err) {
+      console.error('No se pudo registrar el lead en Formspree', err);
+    }
 
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'lead_form_submit', interes });
 
+    const message = `Hola, soy ${nombre}. Me interesa ${interes.toLowerCase()} y quiero agendar mi diagnóstico de 15 minutos. Mi WhatsApp: ${telefono}.`;
     window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
+
+    if (statusEl) statusEl.textContent = '¡Listo! Te abrimos WhatsApp para confirmar tu horario.';
+    if (submitBtn) submitBtn.disabled = false;
   });
 </script>

@@ -40,6 +40,9 @@ export function whatsappUrl(message: string = SITE.whatsapp.defaultMessage): str
   return `https://wa.me/${SITE.whatsapp.number}?text=${encodeURIComponent(message)}`;
 }
 
+/** Endpoint de Formspree para el registro de leads (LeadForm.astro). */
+export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/moevwakr';
+
 export type NavLink = {
   href: string;
   label: string;
