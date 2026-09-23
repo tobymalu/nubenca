@@ -74,3 +74,15 @@ export const NAV_LINKS: NavLink[] = [
   { href: '/blog', label: 'Blog' },
   { href: '/diagnostico', label: 'Diagnóstico' },
 ];
+
+export type PartnerLink = {
+  href: string;
+  label: string;
+};
+
+/** Socios comerciales — se muestran en el footer (no en el footer minimal). */
+export const PARTNER_LINKS: PartnerLink[] = [
+  { href: 'https://www.vallartamagico.com', label: 'Vallarta Mágico' },
+  { href: 'https://www.praben.com', label: 'Praben' },
+  { href: 'https://www.islamarietas.com', label: 'Islas Marietas' },
+];
