@@ -6,8 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: reemplazar por el dominio real de producción antes de lanzar.
-  site: 'https://nubenca.mx',
+  site: 'https://nubenca.com',
   output: 'static',
   integrations: [mdx(), sitemap()],
   vite: {

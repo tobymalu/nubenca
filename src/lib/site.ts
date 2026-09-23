@@ -5,16 +5,16 @@
  *
  * ⚠️ PENDIENTE: los valores marcados con TODO son placeholders de
  * desarrollo. Hay que reemplazarlos por los datos reales antes de lanzar
- * a producción (dominio, teléfono, WhatsApp, email, GTM ID).
+ * a producción (teléfono, WhatsApp, email, GTM ID).
  */
 
 export const SITE = {
   name: 'nubenca',
   tagline: 'Gestión de riesgos boutique para quienes no tienen tiempo que perder',
-  // TODO: dominio real de producción (debe coincidir con `site` en astro.config.mjs)
-  url: 'https://nubenca.mx',
-  // TODO: email real de contacto
-  email: 'hola@nubenca.mx',
+  // Dominio real de producción — debe coincidir con `site` en astro.config.mjs
+  url: 'https://nubenca.com',
+  // TODO: confirmar el email real de contacto (¿hola@nubenca.com?)
+  email: 'hola@nubenca.com',
   phone: {
     // TODO: teléfono real, formato de despliegue
     display: '(33) 0000 0000',
