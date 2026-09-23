@@ -40,6 +40,26 @@ export function whatsappUrl(message: string = SITE.whatsapp.defaultMessage): str
   return `https://wa.me/${SITE.whatsapp.number}?text=${encodeURIComponent(message)}`;
 }
 
+/**
+ * Arma el mensaje de WhatsApp a partir de los datos del LeadForm.
+ * Se usa tanto al enviar el form como en /gracias (leyendo los mismos
+ * datos desde la querystring) para no duplicar la redacción del mensaje.
+ */
+export function buildDiagnosticoMessage(params: {
+  nombre?: string | null;
+  telefono?: string | null;
+  interes?: string | null;
+}): string {
+  const nombre = params.nombre?.trim();
+  const telefono = params.telefono?.trim();
+  const interes = params.interes?.trim();
+
+  if (!nombre || !telefono) return SITE.whatsapp.defaultMessage;
+
+  const interesTexto = interes ? interes.toLowerCase() : 'una cobertura';
+  return `Hola, soy ${nombre}. Me interesa ${interesTexto} y quiero agendar mi diagnóstico de 15 minutos. Mi WhatsApp: ${telefono}.`;
+}
+
 /** Endpoint de Formspree para el registro de leads (LeadForm.astro). */
 export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/moevwakr';
 

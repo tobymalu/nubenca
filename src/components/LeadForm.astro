@@ -1,5 +1,5 @@
 ---
-import { FORMSPREE_ENDPOINT } from '../lib/site';
+import { FORMSPREE_ENDPOINT, SITE } from '../lib/site';
 
 interface Props {
   /** Clase extra para ajustar el contenedor desde donde se use (ej. dentro del Hero). */
@@ -21,6 +21,8 @@ const { class: className = '' } = Astro.props;
   </div>
 
   <input type="hidden" name="_subject" value="Nuevo diagnóstico agendado — nubenca" />
+  {/* Fallback sin JS: Formspree redirige aquí después de procesar el POST nativo. */}
+  <input type="hidden" name="_next" value={`${SITE.url}/gracias`} />
 
   <div>
     <label for="lead-nombre" class="mb-1 block text-sm text-muted">Nombre</label>
@@ -77,7 +79,7 @@ const { class: className = '' } = Astro.props;
 </form>
 
 <script>
-  import { whatsappUrl, FORMSPREE_ENDPOINT } from '../lib/site';
+  import { FORMSPREE_ENDPOINT } from '../lib/site';
 
   const form = document.getElementById('lead-form') as HTMLFormElement | null;
   const errorEl = document.getElementById('lead-form-error');
@@ -102,9 +104,9 @@ const { class: className = '' } = Astro.props;
     statusEl?.classList.remove('hidden');
     if (statusEl) statusEl.textContent = 'Registrando tu diagnóstico…';
 
-    // Se registra el lead en Formspree (queda guardado aunque el usuario no
-    // complete el salto a WhatsApp). Si Formspree falla no bloqueamos el
-    // flujo — WhatsApp sigue siendo el canal de respuesta inmediata.
+    // Se registra el lead en Formspree antes de mandar a /gracias. Si
+    // Formspree falla no bloqueamos el flujo — el cliente igual llega a
+    // la página de confirmación y puede escribir por WhatsApp desde ahí.
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
@@ -121,10 +123,10 @@ const { class: className = '' } = Astro.props;
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'lead_form_submit', interes });
 
-    const message = `Hola, soy ${nombre}. Me interesa ${interes.toLowerCase()} y quiero agendar mi diagnóstico de 15 minutos. Mi WhatsApp: ${telefono}.`;
-    window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
-
-    if (statusEl) statusEl.textContent = '¡Listo! Te abrimos WhatsApp para confirmar tu horario.';
-    if (submitBtn) submitBtn.disabled = false;
+    // Navegación real (no window.open) — un window.open después de un
+    // await puede ser bloqueado por el navegador al no ser reacción
+    // directa al clic. La página de gracias es la confirmación visible.
+    const params = new URLSearchParams({ nombre, telefono, interes });
+    window.location.href = `/gracias?${params.toString()}`;
   });
 </script>
