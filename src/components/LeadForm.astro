@@ -1,0 +1,98 @@
+---
+interface Props {
+  /** Clase extra para ajustar el contenedor desde donde se use (ej. dentro del Hero). */
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<form
+  id="lead-form"
+  class:list={['glass space-y-4 rounded-xl p-6 sm:p-8', className]}
+  aria-label="Formulario de contacto rápido"
+>
+  <div>
+    <h2 class="font-heading text-xl text-foreground">Diagnóstico gratuito de 15 minutos</h2>
+    <p class="mt-1 text-sm text-muted">Sin compromiso. Respondemos por WhatsApp el mismo día.</p>
+  </div>
+
+  <div>
+    <label for="lead-nombre" class="mb-1 block text-sm text-muted">Nombre</label>
+    <input
+      id="lead-nombre"
+      name="nombre"
+      type="text"
+      required
+      autocomplete="name"
+      class="w-full rounded-md border border-gris-platino/30 bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+      placeholder="Tu nombre completo"
+    />
+  </div>
+
+  <div>
+    <label for="lead-telefono" class="mb-1 block text-sm text-muted">WhatsApp</label>
+    <input
+      id="lead-telefono"
+      name="telefono"
+      type="tel"
+      required
+      autocomplete="tel"
+      class="w-full rounded-md border border-gris-platino/30 bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+      placeholder="10 dígitos"
+    />
+  </div>
+
+  <div>
+    <label for="lead-interes" class="mb-1 block text-sm text-muted">Me interesa</label>
+    <select
+      id="lead-interes"
+      name="interes"
+      class="w-full rounded-md border border-gris-platino/30 bg-azul-pizarra px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+    >
+      <option value="Gastos médicos">Gastos médicos mayores</option>
+      <option value="Vida">Seguro de vida</option>
+      <option value="Deducciones">Deducciones fiscales</option>
+      <option value="No estoy seguro">No estoy seguro todavía</option>
+    </select>
+  </div>
+
+  <button
+    type="submit"
+    class="w-full rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+  >
+    Quiero mi diagnóstico
+  </button>
+
+  <p id="lead-form-error" class="hidden text-sm text-red-400" role="alert">
+    Completa tu nombre y WhatsApp para continuar.
+  </p>
+</form>
+
+<script>
+  import { whatsappUrl } from '../lib/site';
+
+  const form = document.getElementById('lead-form') as HTMLFormElement | null;
+  const errorEl = document.getElementById('lead-form-error');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const data = new FormData(form);
+    const nombre = String(data.get('nombre') ?? '').trim();
+    const telefono = String(data.get('telefono') ?? '').trim();
+    const interes = String(data.get('interes') ?? '');
+
+    if (!nombre || !telefono) {
+      errorEl?.classList.remove('hidden');
+      return;
+    }
+    errorEl?.classList.add('hidden');
+
+    const message = `Hola, soy ${nombre}. Me interesa ${interes.toLowerCase()} y quiero agendar mi diagnóstico de 15 minutos. Mi WhatsApp: ${telefono}.`;
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'lead_form_submit', interes });
+
+    window.open(whatsappUrl(message), '_blank', 'noopener,noreferrer');
+  });
+</script>

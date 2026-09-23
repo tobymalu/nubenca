@@ -1,0 +1,109 @@
+---
+import { NAV_LINKS, SITE, whatsappUrl } from '../lib/site';
+
+interface Props {
+  /** Sin nav ni CTA — para rutas aisladas de conversión (ej. /diagnostico) sin puntos de fuga. */
+  minimal?: boolean;
+}
+const { minimal = false } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="glass sticky top-0 z-30 w-full">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <a href="/" class="font-heading text-xl font-semibold tracking-wide text-foreground">
+      {SITE.name}
+    </a>
+
+    {!minimal && (
+      <>
+        <nav class="hidden items-center gap-8 md:flex" aria-label="Navegación principal">
+          {NAV_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class:list={[
+                'text-sm transition-colors hover:text-accent',
+                isActive(link.href) ? 'text-accent' : 'text-muted',
+              ]}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div class="hidden md:block">
+          <a
+            href="/diagnostico"
+            class="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+          >
+            Agenda tu diagnóstico
+          </a>
+        </div>
+
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          class="flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Abrir menú"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+          </svg>
+        </button>
+      </>
+    )}
+  </div>
+
+  {!minimal && (
+    <nav
+      id="mobile-menu"
+      class="hidden flex-col gap-1 border-t border-gris-platino/10 px-4 pb-4 md:hidden"
+      aria-label="Navegación móvil"
+    >
+      {NAV_LINKS.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'rounded-md px-2 py-3 text-sm',
+            isActive(link.href) ? 'text-accent' : 'text-muted',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={whatsappUrl()}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-2 rounded-md bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground"
+      >
+        Escríbenos por WhatsApp
+      </a>
+    </nav>
+  )}
+</header>
+
+{!minimal && (
+  <script is:inline>
+    (function () {
+      var toggle = document.getElementById('mobile-menu-toggle');
+      var menu = document.getElementById('mobile-menu');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var isOpen = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+      });
+    })();
+  </script>
+)}

@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.seo.noindex)
+  .sort((a, b) => b.data.fecha_publicacion.valueOf() - a.data.fecha_publicacion.valueOf());
+
+const dateFormatter = new Intl.DateTimeFormat('es-MX', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<Layout
+  title="Blog — nubenca"
+  description="Artículos técnicos sobre seguros de gastos médicos, seguros de vida y su respaldo fiscal ante el SAT."
+>
+  <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <p class="text-sm uppercase tracking-[0.2em] text-accent">Blog</p>
+    <h1 class="mt-4 font-heading text-4xl text-foreground sm:text-5xl">
+      Lecturas claras sobre riesgo, seguros y fiscalidad
+    </h1>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <article class="glass flex flex-col overflow-hidden rounded-xl">
+          <a href={`/blog/${post.id}`} class="block">
+            <img
+              src={post.data.imagen_portada}
+              alt={post.data.imagen_portada_alt}
+              width="1200"
+              height="630"
+              loading="lazy"
+              class="aspect-[16/9] w-full object-cover"
+            />
+          </a>
+          <div class="flex flex-1 flex-col p-6">
+            <time datetime={post.data.fecha_publicacion.toISOString()} class="text-xs text-muted">
+              {dateFormatter.format(post.data.fecha_publicacion)}
+            </time>
+            <h2 class="mt-2 font-heading text-lg text-foreground">
+              <a href={`/blog/${post.id}`} class="transition-colors hover:text-accent">
+                {post.data.titulo}
+              </a>
+            </h2>
+            <p class="mt-2 flex-1 text-sm text-muted">{post.data.extracto}</p>
+            <a href={`/blog/${post.id}`} class="mt-4 text-sm font-medium text-accent transition hover:opacity-80">
+              Leer artículo →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

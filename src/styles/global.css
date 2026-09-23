@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * Paleta de marca — capa literal.
+ * Cambiar el color de marca es editar estos valores; los componentes
+ * nunca deben referenciar estos tokens directamente, solo los alias
+ * semánticos definidos abajo.
+ */
+@theme {
+  --color-azul-pizarra: #0f172a;
+  --color-onice: #111111;
+  --color-blanco-hueso: #f8fafc;
+  --color-gris-platino: #94a3b8;
+  --color-bronce: #b8860b;
+  --color-azul-electrico: #3b82f6;
+
+  --font-heading: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+ * Alias semánticos por rol — esto es lo único que deben usar los componentes
+ * (bg-background, text-foreground, text-muted, bg-primary, text-accent, etc.)
+ */
+@theme {
+  --color-background: var(--color-azul-pizarra);
+  --color-surface: var(--color-onice);
+  --color-foreground: var(--color-blanco-hueso);
+  --color-muted: var(--color-gris-platino);
+  --color-primary: var(--color-bronce);
+  --color-primary-foreground: var(--color-onice);
+  --color-accent: var(--color-azul-electrico);
+  --color-accent-foreground: var(--color-blanco-hueso);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+@layer utilities {
+  /* Efecto glass sutil reutilizable para tarjetas y overlays */
+  .glass {
+    background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid color-mix(in srgb, var(--color-gris-platino) 20%, transparent);
+  }
+}

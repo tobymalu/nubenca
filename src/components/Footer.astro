@@ -1,0 +1,63 @@
+---
+import { NAV_LINKS, SITE } from '../lib/site';
+
+interface Props {
+  /** Solo copyright y contacto — para rutas aisladas de conversión sin puntos de fuga. */
+  minimal?: boolean;
+}
+const { minimal = false } = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-gris-platino/10 bg-surface">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+    {minimal ? (
+      <div class="text-center text-sm text-muted">
+        <p class="font-heading text-lg text-foreground">{SITE.name}</p>
+        <p class="mt-2">
+          <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-accent">{SITE.email}</a>
+          {' · '}
+          <a href={`tel:${SITE.phone.e164}`} class="transition-colors hover:text-accent">{SITE.phone.display}</a>
+        </p>
+      </div>
+    ) : (
+      <div class="grid gap-10 md:grid-cols-3">
+        <div>
+          <p class="font-heading text-lg text-foreground">{SITE.name}</p>
+          <p class="mt-2 max-w-xs text-sm text-muted">{SITE.tagline}</p>
+        </div>
+
+        <nav aria-label="Navegación del pie de página">
+          <p class="text-sm font-medium text-foreground">Navegación</p>
+          <ul class="mt-3 space-y-2">
+            {NAV_LINKS.map((link) => (
+              <li>
+                <a href={link.href} class="text-sm text-muted transition-colors hover:text-accent">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <p class="text-sm font-medium text-foreground">Contacto</p>
+          <ul class="mt-3 space-y-2 text-sm text-muted">
+            <li>
+              <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-accent">{SITE.email}</a>
+            </li>
+            <li>
+              <a href={`tel:${SITE.phone.e164}`} class="transition-colors hover:text-accent">{SITE.phone.display}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    )}
+
+    <div class="mt-10 flex flex-col gap-2 border-t border-gris-platino/10 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} {SITE.name}. Todos los derechos reservados.</p>
+      <p>Gestión de riesgos, seguros de vida y gastos médicos.</p>
+    </div>
+  </div>
+</footer>

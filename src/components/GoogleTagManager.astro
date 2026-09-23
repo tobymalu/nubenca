@@ -1,0 +1,48 @@
+---
+import { SITE } from '../lib/site';
+
+// PUBLIC_GTM_ID con fallback hardcodeado: si un despliegue olvida
+// configurar la env var, no perdemos GTM en silencio.
+const gtmId = import.meta.env.PUBLIC_GTM_ID || SITE.gtmId;
+---
+
+<script is:inline define:vars={{ gtmId }}>
+  // Consent Mode v2 — se fija el consentimiento ANTES de cargar el
+  // contenedor de GTM. Por defecto todo denegado, salvo que ya exista
+  // una elección guardada en localStorage por el CookieBanner.
+  (function () {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+
+    var stored = null;
+    try {
+      stored = localStorage.getItem('nubenca_cookie_consent');
+    } catch (e) {
+      // localStorage no disponible (modo privado, etc.) — se mantiene el default denegado.
+    }
+
+    var granted = stored === 'accepted';
+
+    gtag('consent', 'default', {
+      ad_storage: granted ? 'granted' : 'denied',
+      analytics_storage: granted ? 'granted' : 'denied',
+      ad_user_data: granted ? 'granted' : 'denied',
+      ad_personalization: granted ? 'granted' : 'denied',
+      wait_for_update: 500,
+    });
+  })();
+
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', gtmId);
+</script>

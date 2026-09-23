@@ -1,0 +1,41 @@
+---
+import LeadForm from './LeadForm.astro';
+---
+
+<section class="relative overflow-hidden border-b border-gris-platino/10">
+  <!--
+    TODO: reemplazar por fotografía arquitectónica/oficina real con overlay
+    oscuro (ver Directrices Visuales). Mientras tanto, gradiente de marca.
+  -->
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.16),_transparent_55%),radial-gradient(circle_at_bottom_left,_rgba(184,134,11,0.14),_transparent_50%)]"></div>
+
+  <div class="relative mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-28">
+    <div>
+      <p class="text-sm uppercase tracking-[0.2em] text-accent">Gestión de riesgos boutique</p>
+      <h1 class="mt-4 font-heading text-4xl leading-tight text-foreground sm:text-5xl lg:text-6xl">
+        Tu concierge financiero para seguros, sin fricción ni letra chiquita.
+      </h1>
+      <p class="mt-6 max-w-lg text-lg text-muted">
+        Curaduría imparcial de seguros de vida y gastos médicos para profesionistas y médicos que
+        no tienen tiempo que perder. Un diagnóstico de 15 minutos, respuestas claras.
+      </p>
+
+      <dl class="mt-10 grid grid-cols-3 gap-6 border-t border-gris-platino/10 pt-6 text-sm">
+        <div>
+          <dt class="text-muted">Respuesta</dt>
+          <dd class="mt-1 font-heading text-xl text-foreground">Mismo día</dd>
+        </div>
+        <div>
+          <dt class="text-muted">Diagnóstico</dt>
+          <dd class="mt-1 font-heading text-xl text-foreground">15 min</dd>
+        </div>
+        <div>
+          <dt class="text-muted">Curaduría</dt>
+          <dd class="mt-1 font-heading text-xl text-foreground">Imparcial</dd>
+        </div>
+      </dl>
+    </div>
+
+    <LeadForm />
+  </div>
+</section>

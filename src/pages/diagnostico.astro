@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { SITE, whatsappUrl } from '../lib/site';
+---
+
+<Layout
+  title="Agenda tu diagnóstico de 15 minutos"
+  description="Agenda un diagnóstico gratuito de 15 minutos sobre tu cobertura de gastos médicos o seguro de vida, o escríbenos directo por WhatsApp."
+  minimal
+  hideWhatsAppOnMobile
+>
+  <section class="mx-auto max-w-3xl px-4 py-16 pb-28 text-center sm:px-6 sm:py-24 sm:pb-24">
+    <p class="text-sm uppercase tracking-[0.2em] text-accent">Agendamiento express</p>
+    <h1 class="mt-4 font-heading text-4xl text-foreground sm:text-5xl">
+      15 minutos. Sin letra chiquita. Directo al grano.
+    </h1>
+    <p class="mx-auto mt-6 max-w-xl text-lg text-muted">
+      Elige la vía que prefieras: escríbenos ahora mismo por WhatsApp o déjanos tus datos y te
+      contactamos hoy mismo.
+    </p>
+
+    <div class="mx-auto mt-10 flex max-w-md flex-col gap-4 sm:flex-row">
+      <a
+        href={whatsappUrl('Hola, quiero agendar mi diagnóstico de 15 minutos.')}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-1 rounded-md bg-[#25D366] px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+      >
+        Escríbenos por WhatsApp
+      </a>
+      <a
+        href={`tel:${SITE.phone.e164}`}
+        class="flex-1 rounded-md border border-gris-platino/30 px-6 py-3 text-sm font-medium text-foreground transition hover:bg-white/5"
+      >
+        Llámanos directo
+      </a>
+    </div>
+
+    <div class="mx-auto mt-14 max-w-md">
+      <LeadForm />
+    </div>
+  </section>
+
+  <!-- CTA fijo de mobile propio de esta ruta — por eso Layout recibe hideWhatsAppOnMobile -->
+  <div class="glass fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t border-gris-platino/10 p-4 sm:hidden">
+    <a
+      href={whatsappUrl('Hola, quiero agendar mi diagnóstico de 15 minutos.')}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex-1 rounded-md bg-[#25D366] px-4 py-3 text-center text-sm font-medium text-white"
+    >
+      WhatsApp
+    </a>
+    <a
+      href={`tel:${SITE.phone.e164}`}
+      class="flex-1 rounded-md bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground"
+    >
+      Llamar
+    </a>
+  </div>
+</Layout>

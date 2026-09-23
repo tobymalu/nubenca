@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import GoogleTagManager from '../components/GoogleTagManager.astro';
+import GoogleTagManagerNoscript from '../components/GoogleTagManagerNoscript.astro';
+import { SITE } from '../lib/site';
+
+interface Props {
+  /** <title> y og:title — distinto del H1 editorial de la página. */
+  title: string;
+  description: string;
+  /** Ruta absoluta opcional para forzar el canonical (ej. contenido duplicado/paginado). */
+  canonicalPath?: string;
+  noindex?: boolean;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  /** Oculta el WhatsAppButton flotante en mobile cuando la página trae su propio CTA fijo. */
+  hideWhatsAppOnMobile?: boolean;
+  /** Header/Footer sin nav — para rutas aisladas de conversión (ej. /diagnostico). */
+  minimal?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+  ogImage = '/images/blog/placeholder-respaldo-fiscal.svg',
+  ogType = 'website',
+  hideWhatsAppOnMobile = false,
+  minimal = false,
+} = Astro.props;
+
+const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, SITE.url);
+const ogImageURL = new URL(ogImage, SITE.url);
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <GoogleTagManager />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#0f172a" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="alternate" hreflang="es" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_MX" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body class="bg-background text-foreground">
+    <GoogleTagManagerNoscript />
+
+    <a
+      href="#content"
+      class="sr-only fixed left-4 top-4 z-50 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only"
+    >
+      Saltar al contenido
+    </a>
+
+    <Header minimal={minimal} />
+
+    <main id="content">
+      <slot />
+    </main>
+
+    <Footer minimal={minimal} />
+
+    <WhatsAppButton hideOnMobile={hideWhatsAppOnMobile} />
+    <CookieBanner />
+  </body>
+</html>

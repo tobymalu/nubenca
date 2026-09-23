@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe o fue movida."
+  noindex
+>
+  <section class="mx-auto flex min-h-[60vh] max-w-2xl flex-col items-center justify-center px-4 text-center sm:px-6">
+    <p class="font-heading text-7xl text-primary">404</p>
+    <h1 class="mt-4 font-heading text-3xl text-foreground sm:text-4xl">
+      Esta página se nos perdió en el camino.
+    </h1>
+    <p class="mt-4 max-w-md text-muted">
+      Puede que el enlace esté roto o que la página haya cambiado de dirección. Vuelve al inicio o
+      agenda tu diagnóstico directamente.
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a
+        href="/"
+        class="rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+      >
+        Volver al inicio
+      </a>
+      <a
+        href="/diagnostico"
+        class="rounded-md border border-gris-platino/30 px-6 py-3 text-sm font-medium text-foreground transition hover:bg-white/5"
+      >
+        Agendar diagnóstico
+      </a>
+    </div>
+  </section>
+</Layout>
