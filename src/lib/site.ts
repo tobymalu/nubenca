@@ -5,7 +5,7 @@
  *
  * ⚠️ PENDIENTE: los valores marcados con TODO son placeholders de
  * desarrollo. Hay que reemplazarlos por los datos reales antes de lanzar
- * a producción (teléfono, WhatsApp, email, GTM ID).
+ * a producción (teléfono, WhatsApp, email).
  */
 
 export const SITE = {
@@ -32,8 +32,7 @@ export const SITE = {
     instagram: '',
     linkedin: '',
   },
-  // TODO: ID real del contenedor de Google Tag Manager
-  gtmId: 'GTM-XXXXXXX',
+  gtmId: 'GTM-WZLM9RPH',
 } as const;
 
 export function whatsappUrl(message: string = SITE.whatsapp.defaultMessage): string {
