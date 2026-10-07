@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import VulnerabilityQuiz from '../../components/VulnerabilityQuiz.astro';
+---
+
+<Layout
+  title="Auditoría de Vulnerabilidad Médica y Patrimonial"
+  description="Responde 6 preguntas directas y descubre en 2 minutos qué tan expuesto está tu patrimonio ante una emergencia médica — con un comparativo personalizado al final."
+>
+  <section class="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-20">
+    <p class="text-sm uppercase tracking-[0.2em] text-accent">Blog · Herramienta interactiva</p>
+    <h1 class="mt-4 font-heading text-3xl text-foreground sm:text-4xl">
+      ¿Qué tan expuesto está tu patrimonio? Descúbrelo en 2 minutos.
+    </h1>
+    <p class="mx-auto mt-4 max-w-xl text-muted">
+      Antes de hablar de pólizas, hablemos de riesgo real. Responde con honestidad — al final te
+      decimos exactamente dónde estás parado.
+    </p>
+  </section>
+
+  <section class="px-4 pb-20 sm:px-6">
+    <VulnerabilityQuiz />
+  </section>
+</Layout>
