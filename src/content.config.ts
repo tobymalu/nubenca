@@ -17,26 +17,25 @@ const seoSchema = z.object({
 
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-  schema: z.object({
-    // Título corto para tarjetas/breadcrumbs/listados.
-    titulo: z.string(),
-    // H1 editorial y persuasivo de la página del artículo — distinto de
-    // `titulo` y de `seo.meta_title`.
-    h1: z.string(),
-    extracto: z.string(),
-    fecha_publicacion: z.date(),
-    fecha_actualizacion: z.date().optional(),
-    autor: z.string().default('Equipo nubenca'),
-    // TODO: migrar a la función `image()` del loader (con foto real) para
-    // que pase por el pipeline de <Image/> de Astro (webp/avif). Por ahora
-    // es una ruta a un placeholder en /public mientras no hay fotografía
-    // real de marca.
-    imagen_portada: z.string(),
-    imagen_portada_alt: z.string(),
-    tags: z.array(z.string()).default([]),
-    destacado: z.boolean().default(false),
-    seo: seoSchema,
-  }),
+  schema: ({ image }) =>
+    z.object({
+      // Título corto para tarjetas/breadcrumbs/listados.
+      titulo: z.string(),
+      // H1 editorial y persuasivo de la página del artículo — distinto de
+      // `titulo` y de `seo.meta_title`.
+      h1: z.string(),
+      extracto: z.string(),
+      fecha_publicacion: z.date(),
+      fecha_actualizacion: z.date().optional(),
+      autor: z.string().default('Equipo nubenca'),
+      // Ruta relativa a un archivo junto al post (ej. "./cover.jpg") —
+      // pasa por el pipeline de <Image/> de Astro (webp/avif).
+      imagen_portada: image(),
+      imagen_portada_alt: z.string(),
+      tags: z.array(z.string()).default([]),
+      destacado: z.boolean().default(false),
+      seo: seoSchema,
+    }),
 });
 
 export const collections = { blog };

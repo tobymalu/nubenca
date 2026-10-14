@@ -4,7 +4,7 @@ h1: "Lo que el SAT sí acepta como deducible en tu póliza (y lo que no)"
 extracto: "Gastos médicos y seguros de vida pueden ser deducibles ante el SAT si cumples ciertas condiciones. Aquí la guía técnica sin letra chiquita."
 fecha_publicacion: 2026-08-14
 autor: "Equipo nubenca"
-imagen_portada: "/images/blog/placeholder-respaldo-fiscal.svg"
+imagen_portada: "./placeholder-respaldo-fiscal.svg"
 imagen_portada_alt: "Documentos fiscales y póliza de seguro sobre un escritorio, con líneas geométricas superpuestas en tono azul pizarra"
 tags: ["fiscal", "deducciones", "gastos médicos"]
 destacado: true

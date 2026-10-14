@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -12,6 +13,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const cover = post.data.imagen_portada;
 
 // Se fuerza timeZone: "UTC" al formatear — si no, la fecha corre un día
 // atrás según la zona horaria del servidor de build.
@@ -28,7 +31,7 @@ const dateFormatter = new Intl.DateTimeFormat('es-MX', {
   description={post.data.seo.meta_description}
   canonicalPath={post.data.seo.canonical}
   noindex={post.data.seo.noindex}
-  ogImage={post.data.seo.og_image ?? post.data.imagen_portada}
+  ogImage={post.data.seo.og_image ?? cover.src}
   ogType="article"
 >
   <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
@@ -51,12 +54,12 @@ const dateFormatter = new Intl.DateTimeFormat('es-MX', {
       )}
     </div>
 
-    <img
-      src={post.data.imagen_portada}
+    <Image
+      src={cover}
       alt={post.data.imagen_portada_alt}
-      width="1200"
-      height="630"
-      class="mt-8 aspect-[16/9] w-full rounded-xl object-cover"
+      width={1200}
+      height={630}
+      class="mt-8 aspect-video w-full rounded-xl object-cover"
     />
 
     <div class="prose prose-invert prose-headings:font-heading prose-a:text-accent mt-10 max-w-none">
