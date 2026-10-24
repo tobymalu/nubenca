@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  /** Cuántos artículos recientes mostrar. */
+  count?: number;
+}
+const { count = 3 } = Astro.props;
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.seo.noindex)
+  .sort((a, b) => b.data.fecha_publicacion.valueOf() - a.data.fecha_publicacion.valueOf())
+  .slice(0, count);
+
+const dateFormatter = new Intl.DateTimeFormat('es-MX', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+{posts.length > 0 && (
+  <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="text-sm uppercase tracking-[0.2em] text-accent">Blog</p>
+        <h2 class="mt-2 font-heading text-3xl text-foreground sm:text-4xl">Últimas lecturas</h2>
+      </div>
+      <a href="/blog" class="text-sm font-medium text-accent transition hover:opacity-80">
+        Ver todos los artículos →
+      </a>
+    </div>
+
+    <div class="mt-10 grid gap-8 md:grid-cols-3">
+      {posts.map((post) => (
+        <article class="glass flex flex-col overflow-hidden rounded-xl">
+          <a href={`/blog/${post.id}`} class="block">
+            <Image
+              src={post.data.imagen_portada}
+              alt={post.data.imagen_portada_alt}
+              width={1200}
+              height={630}
+              class="aspect-video w-full object-cover"
+            />
+          </a>
+          <div class="flex flex-1 flex-col p-6">
+            <time datetime={post.data.fecha_publicacion.toISOString()} class="text-xs text-muted">
+              {dateFormatter.format(post.data.fecha_publicacion)}
+            </time>
+            <h3 class="mt-2 font-heading text-lg text-foreground">
+              <a href={`/blog/${post.id}`} class="transition-colors hover:text-accent">
+                {post.data.titulo}
+              </a>
+            </h3>
+            <p class="mt-2 flex-1 text-sm text-muted">{post.data.extracto}</p>
+            <a href={`/blog/${post.id}`} class="mt-4 text-sm font-medium text-accent transition hover:opacity-80">
+              Leer artículo →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
