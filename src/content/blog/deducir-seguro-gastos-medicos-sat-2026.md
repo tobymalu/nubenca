@@ -10,6 +10,7 @@ imagen_portada_alt: "Escritorio ejecutivo con documentos fiscales y pluma estilo
 tags: ["sat", "deducciones", "gastos médicos", "resico"]
 destacado: true
 relacionados:
+  - "que-es-seguro-gastos-medicos-mayores-mexico"
   - "axa-vs-metlife-vs-gnp-gastos-medicos-directivos"
   - "nivel-hospitales-seguro-gastos-medicos-mayores-mexico"
 seo:

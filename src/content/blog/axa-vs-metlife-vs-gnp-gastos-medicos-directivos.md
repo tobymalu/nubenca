@@ -10,6 +10,7 @@ imagen_portada_alt: "Sala de juntas ejecutiva con vista nocturna al distrito fin
 tags: ["gastos médicos", "comparativa", "axa", "metlife", "gnp"]
 destacado: false
 relacionados:
+  - "que-es-seguro-gastos-medicos-mayores-mexico"
   - "nivel-hospitales-seguro-gastos-medicos-mayores-mexico"
   - "deducir-seguro-gastos-medicos-sat-2026"
 seo:
