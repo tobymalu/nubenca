@@ -34,6 +34,19 @@ const blog = defineCollection({
       imagen_portada_alt: z.string(),
       tags: z.array(z.string()).default([]),
       destacado: z.boolean().default(false),
+      // Slugs de otros posts del mismo cluster temático, para el bloque
+      // "Artículos relacionados" y el enlazado interno entre clusters.
+      relacionados: z.array(z.string()).default([]),
+      // Preguntas frecuentes opcionales — si existen, [slug].astro renderiza
+      // la sección "Preguntas frecuentes" y el schema FAQPage (JSON-LD).
+      faq: z
+        .array(
+          z.object({
+            pregunta: z.string(),
+            respuesta: z.string(),
+          })
+        )
+        .optional(),
       seo: seoSchema,
     }),
 });

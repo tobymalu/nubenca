@@ -3,11 +3,15 @@ titulo: "Deducción de GMM ante el SAT: guía 2026"
 h1: "¿Cómo deducir el Seguro de Gastos Médicos Mayores en el SAT este 2026?"
 extracto: "Guía práctica para hacer deducible tu póliza de Gastos Médicos Mayores en tu declaración anual: límite de 5 UMAs, requisitos de CFDI y qué pasa si estás en RESICO."
 fecha_publicacion: 2026-10-14
+fecha_actualizacion: 2026-10-28
 autor: "Nubenca Concierge"
 imagen_portada: "./cover-deducible-sat.jpg"
 imagen_portada_alt: "Escritorio ejecutivo con documentos fiscales y pluma estilográfica sobre superficie oscura"
 tags: ["sat", "deducciones", "gastos médicos", "resico"]
 destacado: true
+relacionados:
+  - "axa-vs-metlife-vs-gnp-gastos-medicos-directivos"
+  - "nivel-hospitales-seguro-gastos-medicos-mayores-mexico"
 seo:
   meta_title: "¿Cómo deducir tu Seguro de Gastos Médicos Mayores en el SAT? (Guía 2026)"
   meta_description: "Descubre cómo hacer deducible tu póliza de Gastos Médicos Mayores en tu declaración anual del SAT. Límite de 5 UMAS, facturación y requisitos para 2026."
@@ -17,6 +21,8 @@ seo:
 El pago de una póliza de **Gastos Médicos Mayores (GMM)** no solo representa un blindaje indispensable ante contingencias de salud; en el marco tributario mexicano, es también una de las **herramientas de optimización fiscal más eficientes para Personas Físicas**.
 
 Si eres médico especialista, empresario o profesionista independiente, el Servicio de Administración Tributaria (SAT) te permite clasificar la prima total pagada por ti, tu cónyuge, hijos o padres como una **deducción personal**, reduciendo directamente la base sobre la cual se calcula tu ISR anual y generando, en muchos casos, un saldo a favor.
+
+Antes de calcular tu deducción, vale la pena confirmar que estás pagando la prima correcta para tu perfil — compara [AXA, MetLife y GNP para directivos](/blog/axa-vs-metlife-vs-gnp-gastos-medicos-directivos) y revisa [qué nivel de hospital necesitas realmente](/blog/nivel-hospitales-seguro-gastos-medicos-mayores-mexico) antes de optimizar fiscalmente una póliza sobredimensionada.
 
 ## Requisitos Indispensables para Hacer Deducible tu Póliza
 

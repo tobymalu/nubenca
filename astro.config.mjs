@@ -8,7 +8,14 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://nubenca.com',
   output: 'static',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      // @astrojs/sitemap no lee el <meta name="robots">, así que hay que
+      // excluir explícitamente las rutas noindex (ver Layout.astro).
+      filter: (page) => !page.includes('/gracias'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
