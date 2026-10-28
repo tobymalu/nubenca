@@ -9,6 +9,7 @@ imagen_portada_alt: "Escritorio ejecutivo con laptop y documentos financieros fr
 tags: ["gastos médicos", "gmm", "deducible", "coaseguro"]
 destacado: false
 relacionados:
+  - "seguro-gastos-medicos-banco-vs-aseguradora"
   - "axa-vs-metlife-vs-gnp-gastos-medicos-directivos"
   - "nivel-hospitales-seguro-gastos-medicos-mayores-mexico"
   - "deducir-seguro-gastos-medicos-sat-2026"

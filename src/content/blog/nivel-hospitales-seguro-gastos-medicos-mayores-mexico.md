@@ -10,6 +10,7 @@ imagen_portada_alt: "Fachada exterior iluminada de un hospital de alta especiali
 tags: ["gastos médicos", "hospitales", "primas", "comparativa"]
 destacado: false
 relacionados:
+  - "seguro-gastos-medicos-banco-vs-aseguradora"
   - "que-es-seguro-gastos-medicos-mayores-mexico"
   - "axa-vs-metlife-vs-gnp-gastos-medicos-directivos"
   - "deducir-seguro-gastos-medicos-sat-2026"

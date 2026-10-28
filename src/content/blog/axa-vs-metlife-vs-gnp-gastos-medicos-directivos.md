@@ -10,6 +10,7 @@ imagen_portada_alt: "Sala de juntas ejecutiva con vista nocturna al distrito fin
 tags: ["gastos médicos", "comparativa", "axa", "metlife", "gnp"]
 destacado: false
 relacionados:
+  - "seguro-gastos-medicos-banco-vs-aseguradora"
   - "que-es-seguro-gastos-medicos-mayores-mexico"
   - "nivel-hospitales-seguro-gastos-medicos-mayores-mexico"
   - "deducir-seguro-gastos-medicos-sat-2026"
@@ -55,7 +56,7 @@ Para directivos y empresarios, garantizar la admisión en instituciones como el 
 
 En una emergencia de salud, el factor tiempo es crítico. Escuchar una grabación telefónica de 15 minutos para autorizar una carta pase es inaceptable para una agenda saturada.
 
-**La diferencia Nubenca:** Independientemente de si tu póliza se emite con AXA, GNP o MetLife, en **Nubenca** actuamos como tu **Concierge Financiero y Gestor de Crisis**. Nosotros asumimos la relación directa con el área de dictamen de la aseguradora, coordinamos los pagos directos y gestionamos el reembolso de medicamentos de alta especialidad.
+**La diferencia Nubenca:** Independientemente de si tu póliza se emite con AXA, GNP o MetLife, en **Nubenca** actuamos como tu **Concierge Financiero y Gestor de Crisis**. Nosotros asumimos la relación directa con el área de dictamen de la aseguradora, coordinamos los pagos directos y gestionamos el reembolso de medicamentos de alta especialidad. Esa gestión es justo lo que suele faltar cuando el [seguro de gastos médicos se contrata en el banco](/blog/seguro-gastos-medicos-banco-vs-aseguradora).
 
 ## ¿Cuál es la mejor opción para tu perfil?
 
